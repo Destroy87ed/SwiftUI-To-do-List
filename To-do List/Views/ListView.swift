@@ -9,18 +9,19 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State var items: [String] = [
-        "This is the first title",
-        "This is the second title",
-        "This is the third title"
+    @State var items: [ItemModel] = [
+        ItemModel(title: "This is the first title.", isCompleted: false),
+       ItemModel(title: "This is the second title.", isCompleted: false),
+       ItemModel(title: "This is the third title.", isCompleted: false),
     ]
     
     var body: some View {
         List {
-            ForEach(items, id: \.self) { item in
-                ListRowView(title: item)
+            ForEach(items) { item in
+                ListRowView(item: item )
             }
         }
+        .padding(.top, 20)
         .listStyle(PlainListStyle())
         .navigationTitle(Text("To-do List 📒"))
         .toolbar {
@@ -28,7 +29,7 @@ struct ListView: View {
                 EditButton()
             }
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink("Add" ,destination: Text("Destination"))
+                NavigationLink("Add" ,destination: AddView())
             }
         }
     }
